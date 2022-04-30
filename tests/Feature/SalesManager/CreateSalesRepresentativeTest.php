@@ -29,7 +29,7 @@ class CreateSalesRepresentativeTest extends TestCase
     {
         $response = $this->post(route('sales-representatives.store'), $this->validRequestData);
 
-        $response->assertOk();
+        $response->assertRedirect(route('sales-representatives.index'));
         $this->assertDatabaseHas('sales_representatives', $this->validRequestData);
     }
 

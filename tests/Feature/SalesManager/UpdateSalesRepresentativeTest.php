@@ -36,7 +36,7 @@ class UpdateSalesRepresentativeTest extends TestCase
             $this->validRequestData
         );
 
-        $response->assertOk();
+        $response->assertRedirect(route('sales-representatives.index'));
         $this->assertDatabaseHas('sales_representatives', $this->validRequestData);
     }
 

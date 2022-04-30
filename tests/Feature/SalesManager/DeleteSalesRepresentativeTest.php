@@ -16,7 +16,7 @@ class DeleteSalesRepresentativeTest extends TestCase
 
         $response = $this->delete(route('sales-representatives.destroy', $salesRepresentative));
 
-        $response->assertOk();
+        $response->assertRedirect(route('sales-representatives.index'));
         $this->assertDatabaseCount('sales_representatives', 0);
     }
 }

@@ -28,7 +28,7 @@ class StoreSalesRepresentativeRequest extends FormRequest
     public function rules()
     {
         return [
-            'full_name' => ['required', 'unique:sales_representatives,full_name'],
+            'full_name' => $this->fullNameRules(),
             'email' => ['required', 'email'],
             'telephone' => ['required'],
             'joined_date' => ['required', 'date'],
@@ -38,6 +38,19 @@ class StoreSalesRepresentativeRequest extends FormRequest
             ],
             'comments' => ['nullable'],
         ];
+    }
+
+    protected function fullNameRules(): array
+    {
+        if($this->isMethod('put') || $this->isMethod('patch')){
+            return [
+                'required',
+                Rule::unique('sales_representatives')
+                    ->ignore($this->route('salesRepresentative')->getKey()),
+            ];
+        }
+
+        return ['required', Rule::unique('sales_representatives')];
     }
 
     public function toSalesRepresentativeData(): SalesRepresentativeData

@@ -20,6 +20,10 @@ class SalesRepresentative extends Model
       'gregory_road' => 'Gregory Road',
     ];
 
+    protected $casts = [
+        'joined_date' => 'datetime:Y-m-d',
+    ];
+
     protected static function newFactory(): SalesRepresentativeFactory
     {
         return SalesRepresentativeFactory::new();

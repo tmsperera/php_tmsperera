@@ -75,7 +75,11 @@ class SalesRepresentativeController extends Controller
      */
     public function edit(SalesRepresentative $salesRepresentative): Application|Factory|View
     {
-        //TODO To be implemented
+        return view('sales-representatives.edit', [
+            'routes' => SalesRepresentative::ROUTES,
+            'salesRepresentative' => $salesRepresentative,
+            'joinedDate' => $salesRepresentative->joined_date->format('Y-m-d'),
+        ]);
     }
 
     /**

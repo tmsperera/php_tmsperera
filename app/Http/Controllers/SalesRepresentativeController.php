@@ -7,9 +7,35 @@ use Domain\SalesRepresentatives\Models\SalesRepresentative;
 use Domain\SalesRepresentatives\Actions\CreateSalesRepresentativeAction;
 use Domain\SalesRepresentatives\Actions\DeleteSalesRepresentativeAction;
 use Domain\SalesRepresentatives\Actions\UpdateSalesRepresentativeAction;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\Response;
 
 class SalesRepresentativeController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Application|Factory|View
+     */
+    public function index(): Application|Factory|View
+    {
+        return view('sales-representatives.index');
+    }
+
+    /**
+     * Create Sales Representative.
+     *
+     * @return Application|Factory|View
+     */
+    public function create(): Application|Factory|View
+    {
+        return view('sales-representatives.create', [
+            'routes' => SalesRepresentative::ROUTES
+        ]);
+    }
+
     /**
      * Stores Sales Representative.
      *

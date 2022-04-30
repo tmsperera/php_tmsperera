@@ -15,8 +15,11 @@ use App\Http\Controllers\SalesRepresentativeController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('sales-representatives.index');
 });
+
+Route::get('/sales-representatives/index', [SalesRepresentativeController::class, 'index'])
+    ->name('sales-representatives.index');
 
 Route::post('/sales-representatives', [SalesRepresentativeController::class, 'store'])
     ->name('sales-representatives.create');

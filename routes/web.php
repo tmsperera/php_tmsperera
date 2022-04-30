@@ -18,11 +18,14 @@ Route::get('/', function () {
     return redirect()->route('sales-representatives.index');
 });
 
-Route::get('/sales-representatives/index', [SalesRepresentativeController::class, 'index'])
+Route::get('/sales-representatives', [SalesRepresentativeController::class, 'index'])
     ->name('sales-representatives.index');
 
-Route::post('/sales-representatives', [SalesRepresentativeController::class, 'store'])
+Route::get('/sales-representatives/create', [SalesRepresentativeController::class, 'create'])
     ->name('sales-representatives.create');
+
+Route::post('/sales-representatives', [SalesRepresentativeController::class, 'store'])
+    ->name('sales-representatives.store');
 
 Route::put('/sales-representatives/{salesRepresentative}', [SalesRepresentativeController::class, 'update'])
     ->name('sales-representatives.update');

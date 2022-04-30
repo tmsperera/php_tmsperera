@@ -27,7 +27,7 @@ class CreateSalesRepresentativeTest extends TestCase
     /** @test */
     public function when_valid_data_provided()
     {
-        $response = $this->post(route('sales-representatives.create'), $this->validRequestData);
+        $response = $this->post(route('sales-representatives.store'), $this->validRequestData);
 
         $response->assertOk();
         $this->assertDatabaseHas('sales_representatives', $this->validRequestData);
@@ -84,7 +84,7 @@ class CreateSalesRepresentativeTest extends TestCase
     protected function assertAbsenceThrowsValidationErrors(string $absenceValueKey)
     {
         $response = $this->post(
-            route('sales-representatives.create'),
+            route('sales-representatives.store'),
             Arr::except($this->validRequestData, $absenceValueKey)
         );
 
@@ -95,7 +95,7 @@ class CreateSalesRepresentativeTest extends TestCase
     protected function assertInvalidDataThrowsValidationErrors(string $field, mixed $value)
     {
         $response = $this->post(
-            route('sales-representatives.create'),
+            route('sales-representatives.store'),
             [
                 ...$this->validRequestData,
                 $field => $value,

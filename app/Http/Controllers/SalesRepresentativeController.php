@@ -25,6 +25,18 @@ class SalesRepresentativeController extends Controller
     }
 
     /**
+     * Create Sales Representative.
+     *
+     * @return Application|Factory|View
+     */
+    public function create(): Application|Factory|View
+    {
+        return view('sales-representatives.create', [
+            'routes' => SalesRepresentative::ROUTES
+        ]);
+    }
+
+    /**
      * Stores Sales Representative.
      *
      * @param StoreSalesRepresentativeRequest $request

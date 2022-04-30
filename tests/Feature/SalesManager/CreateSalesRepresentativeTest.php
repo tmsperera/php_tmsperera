@@ -19,7 +19,7 @@ class CreateSalesRepresentativeTest extends TestCase
             'email' => 'tmsperera@gmail.com',
             'telephone' => '0771793633',
             'joined_date' => '2022-04-30',
-            'route' => SalesRepresentative::ROUTES['barnes_place'],
+            'route' => 'barnes_place',
             'comments' => 'Test Comment',
         ];
     }

@@ -24,8 +24,14 @@ Route::get('/sales-representatives', [SalesRepresentativeController::class, 'ind
 Route::get('/sales-representatives/create', [SalesRepresentativeController::class, 'create'])
     ->name('sales-representatives.create');
 
+Route::get('/sales-representatives/{salesRepresentative}', [SalesRepresentativeController::class, 'show'])
+    ->name('sales-representatives.show');
+
 Route::post('/sales-representatives', [SalesRepresentativeController::class, 'store'])
     ->name('sales-representatives.store');
+
+Route::get('/sales-representatives/{salesRepresentative}/edit', [SalesRepresentativeController::class, 'edit'])
+    ->name('sales-representatives.edit');
 
 Route::put('/sales-representatives/{salesRepresentative}', [SalesRepresentativeController::class, 'update'])
     ->name('sales-representatives.update');

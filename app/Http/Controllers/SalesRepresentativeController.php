@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\Foundation\Application;
 use App\Http\Requests\StoreSalesRepresentativeRequest;
 use Domain\SalesRepresentatives\Models\SalesRepresentative;
 use Domain\SalesRepresentatives\Actions\CreateSalesRepresentativeAction;
 use Domain\SalesRepresentatives\Actions\DeleteSalesRepresentativeAction;
 use Domain\SalesRepresentatives\Actions\UpdateSalesRepresentativeAction;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\View\View;
-use Illuminate\Http\Response;
 
 class SalesRepresentativeController extends Controller
 {
@@ -21,7 +21,9 @@ class SalesRepresentativeController extends Controller
      */
     public function index(): Application|Factory|View
     {
-        return view('sales-representatives.index');
+        $salesRepresentatives = SalesRepresentative::all();
+
+        return view('sales-representatives.index', compact('salesRepresentatives'));
     }
 
     /**
@@ -32,7 +34,7 @@ class SalesRepresentativeController extends Controller
     public function create(): Application|Factory|View
     {
         return view('sales-representatives.create', [
-            'routes' => SalesRepresentative::ROUTES
+            'routes' => SalesRepresentative::ROUTES,
         ]);
     }
 
@@ -41,12 +43,39 @@ class SalesRepresentativeController extends Controller
      *
      * @param StoreSalesRepresentativeRequest $request
      * @param CreateSalesRepresentativeAction $createSalesRepresentativeAction
+     * @return RedirectResponse
      */
     public function store(
         StoreSalesRepresentativeRequest $request,
         CreateSalesRepresentativeAction $createSalesRepresentativeAction
     ) {
         $createSalesRepresentativeAction->execute($request->toSalesRepresentativeData());
+
+        return $this->redirectToIndex();
+    }
+
+    /**
+     * Show Sales Representative.
+     *
+     * @param SalesRepresentative $salesRepresentative
+     * @return Application|Factory|View
+     */
+    public function show(SalesRepresentative $salesRepresentative): Application|Factory|View
+    {
+        $route = SalesRepresentative::ROUTES[$salesRepresentative->route];
+
+        return view('sales-representatives.show', compact('salesRepresentative', 'route'));
+    }
+
+    /**
+     * Edit Sales Representative.
+     *
+     * @param SalesRepresentative $salesRepresentative
+     * @return Application|Factory|View
+     */
+    public function edit(SalesRepresentative $salesRepresentative): Application|Factory|View
+    {
+        //TODO To be implemented
     }
 
     /**
@@ -55,6 +84,7 @@ class SalesRepresentativeController extends Controller
      * @param SalesRepresentative $salesRepresentative
      * @param StoreSalesRepresentativeRequest $request
      * @param UpdateSalesRepresentativeAction $updateSalesRepresentativeAction
+     * @return RedirectResponse
      */
     public function update(
         SalesRepresentative $salesRepresentative,
@@ -65,6 +95,8 @@ class SalesRepresentativeController extends Controller
             $salesRepresentative,
             $request->toSalesRepresentativeData()
         );
+
+        return $this->redirectToIndex();
     }
 
     /**
@@ -72,11 +104,19 @@ class SalesRepresentativeController extends Controller
      *
      * @param SalesRepresentative $salesRepresentative
      * @param DeleteSalesRepresentativeAction $deleteSalesRepresentativeAction
+     * @return RedirectResponse
      */
     public function destroy(
         SalesRepresentative $salesRepresentative,
         DeleteSalesRepresentativeAction $deleteSalesRepresentativeAction
     ) {
         $deleteSalesRepresentativeAction->execute($salesRepresentative);
+
+        return $this->redirectToIndex();
+    }
+
+    protected function redirectToIndex(): RedirectResponse
+    {
+        return redirect()->route('sales-representatives.index');
     }
 }

@@ -28,13 +28,13 @@ class StoreSalesRepresentativeRequest extends FormRequest
     public function rules()
     {
         return [
-            'full_name' => ['required'],
+            'full_name' => ['required', 'unique:sales_representatives,full_name'],
             'email' => ['required', 'email'],
             'telephone' => ['required'],
             'joined_date' => ['required', 'date'],
             'route' => [
                 'required',
-                Rule::in(SalesRepresentative::ROUTES),
+                Rule::in(array_keys(SalesRepresentative::ROUTES)),
             ],
             'comments' => ['nullable'],
         ];
